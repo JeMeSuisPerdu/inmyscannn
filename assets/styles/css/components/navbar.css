@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playwrite+DK+Loopet:wght@100..400&display=swap');
+.auth-links {
+  display: flex;
+  justify-content: center;
+  background-color: #574e92;
+};
+
+.container{
+  max-width: 1200px;
+}
+#discordLogo{
+  margin: 0;
+  padding-left: 40px;
+  width: 20px;
+  height: 25px;
+  padding-right: 5px;
+}
+.home-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: normal;
+    min-width: 1200px;
+    color: white;
+  }
+  .logo-site{
+    font-family: revert;
+    font-weight: bolder;
+    font-size: 25px;
+    color: #ffffff;
+    align-items: center;
+    display: flex;
+  }
+
+
+  /* SEARCHBAR */
+
+/* General button styling */
+.search-form button {
+    border: none;
+    background: none;
+    color: #000000;
+  }
+  #searchButtonBar {
+    border: none;
+    background: #574e92;
+    color: #ffffff;
+    height: 100%;
+    width: 28%;
+    }
+  /* Styling of whole input container */
+  .search-form {
+    border: 1px solid #000000a6;
+    --timing: 0.3s;
+    --width-of-input: 600px;
+    --height-of-input: 40px;
+    --border-height: 2px;
+    --input-bg: #ffffff;
+    --border-color: #7f2ee9;
+    --border-radius: 5px;
+    --after-border-radius: 1px;
+    position: relative;
+    width: var(--width-of-input);
+    height: var(--height-of-input);
+    display: flex;
+    align-items: center;
+    padding-left: 0.8em;
+    border-radius: var(--border-radius);
+    transition: border-radius 0.5s ease;
+    background: var(--input-bg);
+  }
+  
+  /* Styling of Input */
+  .search-input {
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+  }
+  
+  .search-form:before {
+    content: "";
+    position: absolute;
+    background: var(--border-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: var(--border-height);
+    left: 0;
+    bottom: 0;
+    border-radius: 1px;
+    transition: transform var(--timing) ease;
+  }
+  
+  .search-form:focus-within {
+    border-radius: var(--after-border-radius);
+  }
+  
+  .search-input:focus {
+    outline: none;
+  }
+  
+  .search-form:focus-within:before {
+    transform: scale(1);
+  }
+  
+  .reset-button {
+    border: none;
+    background: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .search-input:not(:placeholder-shown) ~ .reset-button {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Sizing svg icons */
+  .search-form svg {
+    width: 17px;
+    margin-top: 3px;
+  }
+  
+  .home-icon-account {
+    cursor: pointer;
+    width: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+    /* Styles de base pour le menu icon et la sidebar */
+    .menu-icon {
+      display: none; /* Masquer par défaut */
+      cursor: pointer; /* Change le curseur pour indiquer une action */
+      margin-left: auto; /* Pousse l'icône à droite */
+  }
+
+  .sidebar {
+      display: none; /* Masquer par défaut */
+      position: fixed; /* Positionnement du menu de gauche */
+      left: 0; /* Alignement à gauche */
+      top: 0; /* Alignement en haut */
+      width: 50%; /* Largeur du menu */
+      height: 100vh; /* Hauteur du menu */
+      background-color: #0a060e; /* Couleur de fond */
+      color: white; /* Couleur du texte */
+      padding: 20px; /* Espacement interne */
+      z-index: 1000; /* S'assurer qu'il est au-dessus des autres éléments */
+      transition: transform 0.3s ease; /* Transition fluide pour l'affichage */
+      transform: translateX(-100%); /* Déplacer le menu en dehors de l'écran */
+  }
+
+  /* Menu visible */
+  .sidebar.active {
+      display: block; /* Afficher le menu */
+      transform: translateX(0); /* Déplacer le menu dans l'écran */
+  }
+
+  /* Media Query pour afficher le menu à partir de 831px */
+  @media screen and (max-width: 831px) {
+      .menu-icon {
+          display: block; /* Afficher l'icône du menu */
+      }
+      .home-icon-account {
+          display: none; /* Masquer les liens de compte */
+      }
+  }
+
+  /* Styles supplémentaires pour le contenu de la sidebar */
+  .sidebar ul {
+      list-style: none; /* Enlever les puces de liste */
+      padding: 0; /* Enlever le padding */
+  }
+
+  .sidebar ul li {
+      margin: 50px 0; /* Marges entre les éléments de la liste */
+  }
+
+  .sidebar a {
+      color: white; /* Couleur des liens */
+      text-decoration: none; /* Enlever le soulignement des liens */
+  }
+
+  .sidebar a:hover {
+      text-decoration: underline; /* Souligner au survol */
+  }

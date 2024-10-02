@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lecture du scan{% endblock %}
+
+{% block body %}
+{{ navbar() }}
+<div class="home-container container">
+    <section class="home-threads-group">
+        <h1 id="nameChapter">{{ name|replace({'%20': ' '}) }} - Chapitre {{ chapter }} - Page {{ page }}</h1>
+        <div class="cover-container">
+            <img style="width: 500px;" src="{{ coverImage }}" alt="Couverture du Chapitre" />
+        </div>
+        <div class="navigation-buttons">
+            <a href="{{ path('chapter_cover', {'name': name, 'chapter': chapter, 'page': page > 1 ? page - 1 : 1}) }}">
+                <button>Page précédente</button>
+            </a>
+            <a href="{{ path('chapter_cover', {'name': name, 'chapter': chapter, 'page': page + 1}) }}">
+                <button>Page suivante</button>
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+

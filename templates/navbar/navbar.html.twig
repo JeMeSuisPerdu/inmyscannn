@@ -1,0 +1,41 @@
+{# templates/navbar/navbar.html.twig #}
+
+<div class="auth-links" data-turbolinks="false">
+    <div class="home-navbar-container container">
+        <a class="logo-site" href="{{ path('app_home') }}">
+            <img height="40" src="{{ asset('img/logo/logo.png') }}" alt="Logo InMyScan">InMyScan</a>
+        
+        <div class="home-icon-account">
+            <a style="color: white; font-weight: bold;" href="{{ path('catalogue') }}">CATALOGUE</a>
+            <a style="color: white; font-weight: bold;display: flex;" href="#"><img id="discordLogo" src="{{ asset('img/logo/discord.png') }}" alt="Icone pour votre profil">PROFIL</a>
+        </div>
+
+        {# Bouton menu masqué par défaut #}
+        <div class="menu-icon" id="menuIcon" onclick="toggleSidebar()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="white">
+                <path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/>
+            </svg>
+        </div>
+    </div>
+
+    {# Menu de gauche masqué par défaut #}
+    <div class="sidebar" id="sidebarMenu">
+        <ul>
+            <li><a style="color: white; font-weight: bold;" href="{{ path('catalogue') }}">CATALOGUE</a></li>
+            <li><a href="#item2" style="color: white; font-weight: bold;">PROFIL</a></li>
+            <li><a href="#item3"></a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebarMenu');
+        // Vérifiez si le menu a la classe active
+        if (sidebar.classList.contains('active')) {
+            sidebar.classList.remove('active'); // Masquer le menu
+        } else {
+            sidebar.classList.add('active'); // Afficher le menu
+        }
+    }
+</script>

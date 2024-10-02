@@ -1,0 +1,54 @@
+body {
+    background-color:#111111;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0 auto;
+    color: white;
+    
+}
+
+.background-container {
+  /* Basic dimensions and centering */
+  width: 100%;
+  height: 100%;
+  /* Dark mode colors and gradient */
+  background: #121212; /* Fallback for browsers that don't support gradients */
+  background: linear-gradient(
+    135deg,
+    #121212 25%,
+    #1a1a1a 25%,
+    #1a1a1a 50%,
+    #121212 50%,
+    #121212 75%,
+    #1a1a1a 75%,
+    #1a1a1a
+  );
+  background-size: 40px 40px;
+  }
+p::first-letter {
+    text-transform: uppercase;
+}
+h1::first-letter {
+    text-transform: uppercase;
+}
+h2::first-letter {
+    text-transform: uppercase;
+}
+.error {
+    border-color: red;
+}
+
+.error-p {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+button{
+    cursor: pointer;
+}
+li {
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}

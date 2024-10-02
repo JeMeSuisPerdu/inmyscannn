@@ -1,0 +1,23 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+    csrf_protection: true
+    error_controller: 'App\Controller\ErrorController::showError'
+    # Configuration des sessions en production ou développement
+    session:
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/prod'
+        cookie_secure: auto
+        cookie_samesite: lax
+        cookie_httponly: true
+    # Note that the session will be started ONLY if you read or write from it.
+    # Il n'est pas nécessaire de déclarer `session: true` ici.
+    #session: true
+
+    #esi: true
+    #fragments: true
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file

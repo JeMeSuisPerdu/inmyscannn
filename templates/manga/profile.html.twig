@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil du Manga - {{ manga.titre }}{% endblock %}
+
+{% block body %}
+{{ navbar() }}
+<main class="profile-anime-section">
+    <h1>{{ manga.titre }}</h1>
+    <div class="image-profil-container" style="height: 350px; margin: 0 auto;">
+        <img style="border: 1px solid #574e92; height: 100%; width: 100%; object-fit: cover;" 
+             src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" 
+             alt="Couverture de {{ manga.titre }}" class="clickable-image">
+    </div>
+    
+    <section class="main-profile-container">
+        {% if manga.description is not empty %}
+            <p>{{ manga.description }}</p>
+        {% else %}
+            <p style="background:none;">La description pour ce scan / anime n'est pas encore disponible... On la mettra peut-être un jour, qui sait ? 🥹</p>
+        {% endif %}
+        
+        <section class="profile-manga-roles">
+            <h2>Rôles</h2>
+            <ul>
+                {% for role in roles %}
+                    <li><strong style="font-weight: normal;">{{ role }}</strong></li>
+                {% endfor %}
+            </ul>
+        </section>
+        <h2>Les saisons de l'anime</h2>
+        <div class="saisons-container">
+            {% for saison_numero, episodes in saisons %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Saison {{ saison_numero }}</h3>
+                        <a href="{{ path('voir_anime', {'mangaId': manga.id, 'saison': saison_numero}) }}" class="btn btn-primary">Voir les épisodes</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if scans is not empty %}
+            <h2>Lire les scans</h2>
+            <div class="saisons-container">
+                <div class="button-container">
+                    <div class="card">
+                        <h3>Voir les scans</h3>
+                        <a href="{{ path('manga_scans', {'id': manga.id}) }}" class="btn">Voir les scans</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <p>L'auteur de <strong style="padding: 0 5px;">{{ manga.titre }}</strong> est : {{ manga.author }}</p>
+    </section>
+</main>
+
+
+{% endblock %}

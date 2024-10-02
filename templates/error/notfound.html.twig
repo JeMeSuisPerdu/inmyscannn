@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page Non Trouvée | Anime VOSTFR{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Désolé, ce chapitre d'anime n'a pas pu être trouvé. Vérifiez l'URL ou retournez à la page d'accueil pour explorer d'autres contenus." />
+    <meta name="robots" content="noindex, nofollow" />
+{% endblock %}
+
+{% block body %}
+<style>
+    .error-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+        color: #333;
+        text-align: center;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+    
+    .error-container h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #dc3545; /* Rouge pour indiquer une erreur */
+    }
+    
+    .error-container p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .error-container button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .error-container button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="error-container">
+    <h1>ERR0R 404</h1>
+    <p>Nous n'avons pas pu trouver cette page. Veuillez retourner à la page d'accueil.</p>
+    <a href="{{ path('app_home') }}">
+        <button>Retour à la page d'accueil</button>
+    </a>
+</div>
+{% endblock %}

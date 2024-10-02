@@ -1,0 +1,185 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Catalogue | Anime VOSTFR - Regarder les meilleurs animes en VOSTFR{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Découvrez notre catalogue d'animes VOSTFR. Filtrez par rôle et regardez vos animes préférés dans la meilleure qualité." />
+    <meta name="keywords" content="catalogue anime, anime VOSTFR, animes à voir, filtrer anime, regarder anime en ligne" />
+{% endblock %}
+
+{% block body %}
+{{ navbar() }}
+
+<h1 style="display: flex;justify-content: center;">CATALOGUE D'ANIMES</h1>
+
+<div class="anime-container-filter">
+    <div class="anime-catalogue-filter">
+        <h2 style="margin-left: 20px;display: flex;justify-content: center;">Filtrer par rôle</h2>
+        <div class="filter-container" style="display: flex;flex-wrap: wrap;justify-content: center;">
+            {% for role in roles %}
+            <div class="checkbox-wrapper-16">
+                <label class="checkbox-wrapper">
+                    <input type="checkbox" class="checkbox-input" value="{{ role.nom }}" />
+                    <span class="checkbox-tile">
+                        <span class="checkbox-label">{{ role.nom }}</span>
+                    </span>
+                </label>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="search-container" style="text-align: center;">
+<input type="text" id="search-input" placeholder="Rechercher un manga..." autocomplete="off"></div>
+
+
+<div class="anime-catalogue-box">
+<div class="anime-catalogue-list">
+    {% for manga in mangas %}
+        <article class="anime-catalogue-container">
+            <div class="anime-catalogue-item">
+                <a href="{{ path('voir_anime', { 'mangaId': manga.id, 'saison': 1 }) }}" aria-label="Voir l'anime {{ manga.titre }}">
+                    <img src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" alt="{{ manga.titre }} - Regarder en VOSTFR" loading="lazy" class="clickable-image">
+                </a>
+            </div>
+            <h2>{{ manga.titre }}</h2>
+            <p style="display:none;" class="roles-catalogue">{{ mangasWithRoles[manga.id]|join(', ') }}</p>
+        </article>
+    {% else %}
+    {% endfor %}
+</div>
+
+</div>
+<!-- Indicateur de chargement -->
+<div id="loadingContainer">
+    <iframe scrolling = "no" frameBorder = "0"  id="loadingIndicator"src="https://lottie.host/embed/a8f510d3-a527-4cd3-a00d-7bdc845bf2f7/bZ1cY1VT2M.json"></iframe>
+</div>
+    {{ footer() }}
+<script>
+let currentPage = 1; // Commencez à la page 1
+const totalPages = {{ totalPages }}; // Total des pages à partir de Twig
+const loadingIndicator = document.getElementById('loadingIndicator');
+const checkboxes = document.querySelectorAll('.checkbox-input'); // Sélectionnez tous les checkboxes
+const searchInput = document.getElementById('search-input'); // Sélectionnez l'input de recherche
+
+window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 900) { // Vérifiez si l'utilisateur a défilé vers le bas
+        if (currentPage < totalPages) {
+            currentPage++;
+            loadMoreMangas(currentPage);
+        }
+    }
+});
+
+// Écoutez les changements dans les cases à cocher
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+        loadFilteredMangas(); // Chargez les mangas filtrés
+    });
+});
+
+// Écoutez la saisie dans la barre de recherche
+searchInput.addEventListener('input', () => {
+    loadFilteredMangas(); // Chargez les mangas filtrés
+});
+
+function loadMoreMangas(page) {
+    loadingIndicator.style.display = 'block'; // Affiche l'indicateur de chargement
+
+    const selectedRoles = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+    
+    const searchTerm = searchInput.value;
+
+    // Construction de l'URL avec les paramètres de filtre
+    const url = new URL(`/catalogue`, window.location.origin);
+    url.searchParams.append('page', page);
+    
+    if (selectedRoles.length > 0) {
+        url.searchParams.append('roles', selectedRoles.join(',')); // Ajoutez les rôles sélectionnés
+    }
+    
+    if (searchTerm) {
+        url.searchParams.append('search', searchTerm); // Ajoutez le terme de recherche
+    }
+
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const mangasContainer = document.querySelector('.anime-catalogue-list');
+            const newMangas = doc.querySelector('.anime-catalogue-list').innerHTML; // Récupérez le HTML des nouveaux mangas
+            
+            // Ajoutez les nouveaux mangas à la fin uniquement si ce ne sont pas des résultats filtrés
+            if (currentPage > 1) {
+                mangasContainer.insertAdjacentHTML('beforeend', newMangas); // Ajoutez les nouveaux mangas
+            } else {
+                mangasContainer.innerHTML = newMangas; // Remplacez les mangas
+            }
+        })
+        .catch(error => console.error('Erreur lors du chargement des mangas:', error))
+        .finally(() => {
+            loadingIndicator.style.display = 'none'; // Masque l'indicateur de chargement
+        });
+}
+
+// Charger les mangas filtrés sans pagination
+function loadFilteredMangas() {
+    loadingIndicator.style.display = 'block'; // Affiche l'indicateur de chargement
+    currentPage = 1; // Réinitialisez la page pour le nouveau chargement
+
+    const selectedRoles = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+    
+    const searchTerm = searchInput.value;
+
+    // Construction de l'URL avec les paramètres de filtre
+    const url = new URL(`/catalogue`, window.location.origin);
+    url.searchParams.append('page', currentPage);
+    
+    // Ajout des rôles sélectionnés uniquement s'il y en a
+    if (selectedRoles.length > 0) {
+        url.searchParams.append('roles', selectedRoles.join(','));
+    }
+    
+    // Ajout du terme de recherche uniquement s'il n'est pas vide
+    if (searchTerm) {
+        url.searchParams.append('search', searchTerm);
+    }
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur de chargement des mangas'); // Gérer les erreurs
+            }
+            return response.text();
+        })
+        .then(data => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const mangasContainer = document.querySelector('.anime-catalogue-list');
+            const newMangas = doc.querySelector('.anime-catalogue-list').innerHTML;
+
+            // Remplacez les mangas seulement si le contenu est différent
+            if (newMangas.trim() !== '') {
+                mangasContainer.innerHTML = newMangas; // Remplacez les mangas
+            } else {
+                mangasContainer.innerHTML = '<p>Aucun résultat trouvé.</p>'; // Message d'absence de résultat
+            }
+            currentPage = 1; // Réinitialisez la page
+        })
+        .catch(error => console.error('Erreur lors du chargement des mangas:', error))
+        .finally(() => {
+            loadingIndicator.style.display = 'none'; // Masque l'indicateur de chargement
+        });
+}
+
+</script>
+
+
+
+{% endblock %}

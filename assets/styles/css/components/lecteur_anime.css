@@ -1,0 +1,40 @@
+.anime-lecture-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.anime-lecture-box{
+    background: #282828cc;
+    width: 1000px;
+    border-radius: 10px;
+}
+#episode-select{
+    padding: 8px;
+    border-radius: 5px;
+    background: #090909;
+    border: none;
+    color: white;
+    border: 1px solid #565fbb;
+}
+#lecteur-select{
+    padding: 8px;
+    border-radius: 5px;
+    background: #090909;
+    border: none;
+    color: white;
+    margin-left:20px;
+    border: 1px solid #565fbb;
+}
+.anime-lecture-content-vid{
+    padding: 20px;
+}
+.anime-container h1{
+    margin-bottom: 50px;
+    background: #0202021f;
+    width: 100%;
+    margin-top: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}

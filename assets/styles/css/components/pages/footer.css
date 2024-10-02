@@ -1,0 +1,72 @@
+footer {
+    background-color: #0f0f0f; /* Couleur de fond sombre */
+    color: #ffffff; /* Couleur du texte en blanc */
+    padding: 40px 0; /* Espacement autour du contenu */
+    text-align: center; /* Centrer le texte */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 20px; /* Espacement autour des sections */
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px; /* Espacement sous les titres */
+    text-transform: uppercase; /* Texte des titres en majuscules */
+}
+
+.footer-section p,
+.footer-section ul {
+    font-size: 14px; /* Taille du texte */
+    line-height: 1.6; /* Hauteur de ligne pour améliorer la lisibilité */
+}
+
+.footer-section ul {
+    list-style: none; /* Suppression des puces */
+    padding: 0; /* Pas de padding interne */
+}
+
+.footer-section ul li {
+    margin: 10px 0; /* Espacement entre les éléments de liste */
+}
+
+.footer-section ul li a {
+    color: #ffffff;
+    text-decoration: none; /* Suppression des soulignements */
+    transition: color 0.3s ease; /* Transition douce pour le survol */
+}
+
+.footer-section ul li a:hover {
+    color: #1abc9c; /* Changement de couleur au survol */
+}
+
+.footer-bottom {
+    margin-top: 30px;
+    border-top: 1px solid #34495e; /* Ligne fine pour séparer le contenu */
+    padding-top: 20px; /* Espacement au-dessus de la ligne */
+}
+
+.footer-bottom p {
+    font-size: 12px; /* Plus petite taille de texte pour le copyright */
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Disposition en colonne sur petits écrans */
+        text-align: left; /* Aligner le texte à gauche */
+    }
+
+    .footer-section {
+        margin: 10px 0; /* Réduire l'espacement pour petits écrans */
+    }
+}
