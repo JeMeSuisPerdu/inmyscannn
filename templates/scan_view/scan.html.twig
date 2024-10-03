@@ -6,7 +6,8 @@
 {{ navbar() }}
 <div class="home-container container">
     <section class="home-threads-group">
-        <h1 id="nameChapter">{{ name|replace({'%20': ' '}) }} - Chapitre {{ chapter }} - Page {{ page }}</h1>
+        <h1 id="nameChapter">{{ name|replace({'%20': ' '}) }}</h1>
+        <h2 style="text-align:center; font-weight:normal;">Chapitre {{ chapter }} | Page {{ page }}</h2>
         <div class="cover-container">
             <img style="width: 500px;" src="{{ coverImage }}" alt="Couverture du Chapitre" />
         </div>

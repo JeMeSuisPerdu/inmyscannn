@@ -9,8 +9,8 @@
     <h1>{{ manga.titre }}</h1>
     <div class="image-profil-container" style="height: 350px; margin: 0 auto;">
         <img style="border: 1px solid #574e92; height: 100%; width: 100%; object-fit: cover;" 
-             src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" 
-             alt="Couverture de {{ manga.titre }}" class="clickable-image">
+            src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" 
+            alt="Couverture de {{ manga.titre }}" class="clickable-image">
     </div>
 
     <section class="main-profile-container">
@@ -31,6 +31,8 @@
             </ul>
         </section>
 
+
+        {% if saisons is not empty %}
         <h2 style="width: 100%;background: #5d5d5d40;padding: 15px;border-radius: 10px;">Les saisons de l'anime</h2>
         <div class="saisons-container">
             {% for saison_numero, episodes in saisons %}
@@ -42,7 +44,7 @@
                 </div>
             {% endfor %}
         </div>
-
+        {% endif %}
         {% if scans is not empty %}
             <h2 style="width: 100%;background: #5d5d5d40;padding: 15px;border-radius: 10px;">Lire les scans</h2>
             <div class="saisons-container">

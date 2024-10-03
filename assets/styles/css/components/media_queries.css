@@ -56,7 +56,7 @@
 
 @media screen and (max-width: 980px) {
     .home-navbar-container {
-        min-width: 700px;
+        min-width: 100%;
         padding: 25px;
     }
     .search-form{
@@ -65,7 +65,9 @@
     }
     .anime-container {
         margin: 5px 10px;
+        width: 900px;
     }
+    
     .main-video-container{
         max-width: 920px;
         margin: 0 auto;
@@ -77,8 +79,8 @@
         overflow: hidden;
     }
     .anime-item {
-        width: 190px;
-        height: 345px;
+        width: 300px;
+        height: 545px;
     }
     .logo-site img{
         padding-right: 13px;
@@ -102,7 +104,7 @@
         font-size: 1.8em;
     }
     .image-profil-container{
-        width: 700px;
+        width: 800px;
         max-height: 270px;
     }
     .profile-anime-section {
