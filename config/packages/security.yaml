@@ -46,11 +46,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_USER }
-         - { path: ^/publish_an_article, roles: IS_AUTHENTICATED_FULLY } # Access reserved to authentificated users ;)  
-         - { path: ^/conversations/start, roles: IS_AUTHENTICATED_FULLY } 
-        #  - { path: ^/article, roles: IS_AUTHENTICATED_FULLY } # Access reserved to authentificated users ;)   
-
 when@test:
     security:
         password_hashers:

@@ -1,0 +1,127 @@
+{# templates/profile/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{{navbar()}}
+
+<div class="profile-page">
+    <h1 class="profile-title">Mes Animes Enregistrés</h1>
+
+    <ul id="anime-list" class="anime-listing">
+        <!-- Les animes enregistrés seront affichés ici -->
+    </ul>
+
+    <div id="no-anime" class="no-anime-message" style="display: none;">
+        <p style="font-size: 0.9em;color:#ffffffcc;">Vous n'avez pas encore enregistré d'animes.</p>
+    </div>
+</div>
+
+<script>
+    // Récupérer les animes enregistrés dans le localStorage
+    let animeList = JSON.parse(localStorage.getItem('animes')) || [];
+
+    // Sélectionner les éléments du DOM
+    let listElement = document.getElementById('anime-list');
+    let noAnimeMessage = document.getElementById('no-anime');
+
+    // Si la liste est vide, afficher un message
+    if (animeList.length === 0) {
+        noAnimeMessage.style.display = 'block';
+    } else {
+        // Afficher les animes dans le DOM
+        animeList.forEach(function(anime) {
+            let listItem = document.createElement('li');
+
+            // Construire le chemin de l'image
+            const imageSrc = "{{ asset('img/anime_pfp/') }}" + "photo_"+ anime.id+".jpg"; // Assurez-vous que `anime.photo` contient le nom du fichier image
+
+            // Créer une structure pour chaque anime favori
+            listItem.innerHTML = `
+                <img src="${imageSrc}" alt="${anime.titre}" class="anime-image" />
+                <span class="anime-title">${anime.titre}</span>
+            `;
+
+            listElement.appendChild(listItem);
+        });
+    }
+</script>
+
+<style>
+    /* Style général pour le conteneur du profil */
+    .profile-page {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style du titre de la page */
+    .profile-title {
+        text-align: center;
+        color: #ffffff;
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
+
+    /* Style de la liste d'animes */
+    .anime-listing {
+    list-style-type: none;
+    overflow-x: auto;
+    display: flex;
+    gap: 20px;
+    overflow-y: hidden;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff0f;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .anime-listing li {
+        background-color: #3f51b58c;
+        color: white;
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        font-size: 1.3rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+        display: flex; /* Pour aligner l'image et le texte */
+        flex-direction: column; /* Mettre l'image au-dessus du texte */
+        align-items: center; /* Centrer horizontalement */
+        width: 200px; /* Largeur fixe pour chaque élément */
+        flex-wrap: nowrap; /* Éviter le passage à la ligne */
+    }
+
+    .anime-image {
+        width: auto; /* Ajuster la largeur automatiquement */
+        height: 100px; /* Hauteur fixe de 100px pour les images */
+        border-radius: 4px; /* Arrondir les coins de l'image */
+        margin-bottom: 8px; /* Espacement entre l'image et le titre */
+    }
+
+    .anime-listing li:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Message lorsqu'il n'y a pas d'animes enregistrés */
+    .no-anime-message {
+        text-align: center;
+        font-size: 1.3rem;
+        color: #666;
+        padding: 25px;
+        background-color: #f4f4f417;
+        border-radius: 8px;
+    }
+
+    .anime-title {
+        vertical-align: middle; /* Centrer verticalement */
+        text-align: center; /* Centrer le texte */
+        font-size: 1rem; /* Taille de police pour le titre */
+    }
+</style>
+
+{% endblock %}

@@ -39,7 +39,7 @@
     {% for manga in mangas %}
         <article class="anime-catalogue-container">
             <div class="anime-catalogue-item">
-                <a href="{{ path('voir_anime', { 'mangaId': manga.id, 'saison': 1 }) }}" aria-label="Voir l'anime {{ manga.titre }}">
+                <a href="{{ path('manga_profile', { 'id': manga.id}) }}" aria-label="Voir l'anime {{ manga.titre }}">
                     <img src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" alt="{{ manga.titre }} - Regarder en VOSTFR" loading="lazy" class="clickable-image">
                 </a>
             </div>

@@ -1,3 +1,4 @@
+{# templates/profile/show.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Profil du Manga - {{ manga.titre }}{% endblock %}
@@ -11,8 +12,10 @@
              src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" 
              alt="Couverture de {{ manga.titre }}" class="clickable-image">
     </div>
-    
+
     <section class="main-profile-container">
+<button id="add-to-favorites" class="favbtn add-to-favorites">Ajouter aux Favoris</button>
+
         {% if manga.description is not empty %}
             <p>{{ manga.description }}</p>
         {% else %}
@@ -20,14 +23,15 @@
         {% endif %}
         
         <section class="profile-manga-roles">
-            <h2>Rôles</h2>
+            <h2 style="width: 100%;background: #5d5d5d40;padding: 15px;border-radius: 10px;">Rôles</h2>
             <ul>
                 {% for role in roles %}
                     <li><strong style="font-weight: normal;">{{ role }}</strong></li>
                 {% endfor %}
             </ul>
         </section>
-        <h2>Les saisons de l'anime</h2>
+
+        <h2 style="width: 100%;background: #5d5d5d40;padding: 15px;border-radius: 10px;">Les saisons de l'anime</h2>
         <div class="saisons-container">
             {% for saison_numero, episodes in saisons %}
                 <div class="card">
@@ -40,7 +44,7 @@
         </div>
 
         {% if scans is not empty %}
-            <h2>Lire les scans</h2>
+            <h2 style="width: 100%;background: #5d5d5d40;padding: 15px;border-radius: 10px;">Lire les scans</h2>
             <div class="saisons-container">
                 <div class="button-container">
                     <div class="card">
@@ -52,8 +56,69 @@
         {% endif %}
 
         <p>L'auteur de <strong style="padding: 0 5px;">{{ manga.titre }}</strong> est : {{ manga.author }}</p>
+
     </section>
 </main>
 
+<style>
+    .btn-transparent {
+        background-color: rgba(255, 255, 255, 0.3)!important; /* Transparent avec un fond blanc */
+        transition: background-color 0.3s ease; /* Animation de transition */
+    }
+    .add-to-favorites:hover {
+        background-color: #5d56a4c7;
+    }
+    .favbtn {
+        margin-top: 20px;
+        border: none;
+        background-color: #362f7ec7;
+        color: white; /* Assurez-vous que le texte est visible */
+        padding: 10px 20px; /* Ajoutez du padding pour un meilleur style */
+        cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
+        border-radius: 5px; /* Arrondir les coins pour un meilleur style */
+    }
+</style>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer la liste des animes dans le localStorage
+    let animeList = JSON.parse(localStorage.getItem('animes')) || [];
+    
+    // Vérifier si l'anime est déjà dans les favoris
+    let animeExists = animeList.some(anime => anime.id === {{ manga.id }});
+
+    // Si l'anime est déjà dans les favoris, appliquer la classe .btn-transparent
+    if (animeExists) {
+        document.getElementById('add-to-favorites').classList.add('btn-transparent');
+    }
+
+    document.getElementById('add-to-favorites').addEventListener('click', function() {
+        // Vérifier à nouveau si l'anime est déjà dans les favoris
+        animeExists = animeList.some(anime => anime.id === {{ manga.id }});
+
+        if (!animeExists) {
+            // Ajouter l'anime aux favoris
+            animeList.push({
+                id: {{ manga.id }},
+                titre: '{{ manga.titre }}'
+            });
+
+            // Mettre à jour le localStorage
+            localStorage.setItem('animes', JSON.stringify(animeList));
+
+            // Modifier le style du bouton pour indiquer que l'anime a été ajouté
+            this.classList.add('btn-transparent');
+        } else {
+            // Retirer l'anime des favoris
+            animeList = animeList.filter(anime => anime.id !== {{ manga.id }});
+
+            // Mettre à jour le localStorage
+            localStorage.setItem('animes', JSON.stringify(animeList));
+
+            // Réinitialiser le style du bouton
+            this.classList.remove('btn-transparent');
+        }
+    });
+});
+</script>
 {% endblock %}

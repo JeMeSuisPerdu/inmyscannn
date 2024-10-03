@@ -42,7 +42,7 @@
                     {% for manga in actionMangas %}
                         <article class="anime-container">
                             <div class="anime-item">
-                                <a href="{{ path('voir_anime', { 'mangaId': manga.id, 'saison': 1 }) }}" aria-label="Voir {{ manga.titre }}">
+                                <a href="{{ path('manga_profile', { 'id': manga.id}) }}" aria-label="Voir {{ manga.titre }}">
                                     <img src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" alt="Couverture de {{ manga.titre }}" loading="lazy" class="clickable-image">
                                 </a>
                             </div>
@@ -68,7 +68,7 @@
                     {% for manga in romanceMangas %}
                         <article class="anime-container">
                             <div class="anime-item">
-                                <a href="{{ path('voir_anime', { 'mangaId': manga.id, 'saison': 1 }) }}" aria-label="Voir {{ manga.titre }}">
+                                <a href="{{ path('manga_profile', { 'id': manga.id}) }}" aria-label="Voir {{ manga.titre }}">
                                     <img src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" alt="Couverture de {{ manga.titre }}" loading="lazy" class="clickable-image">
                                 </a>
                             </div>
@@ -96,7 +96,7 @@
                 {% for manga in mangas %}
                     <article class="anime-container">
                         <div class="anime-item">
-                            <a href="{{ path('voir_anime', { 'mangaId': manga.id, 'saison': 1 }) }}" aria-label="Voir {{ manga.titre }}">
+                            <a href="{{ path('manga_profile', { 'id': manga.id}) }}" aria-label="Voir {{ manga.titre }}">
                                 <img src="{{ asset('img/anime_pfp/' ~ manga.photo) }}" alt="Couverture de {{ manga.titre }}" loading="lazy" class="clickable-image">
                             </a>
                         </div>
