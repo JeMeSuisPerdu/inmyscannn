@@ -25,35 +25,68 @@
     let noAnimeMessage = document.getElementById('no-anime');
 
     // Si la liste est vide, afficher un message
-    if (animeList.length === 0) {
-        noAnimeMessage.style.display = 'block';
-    } else {
-        // Afficher les animes dans le DOM
-        animeList.forEach(function(anime) {
-            let listItem = document.createElement('li');
+    function renderAnimeList() {
+        listElement.innerHTML = ''; // Vider la liste actuelle avant de la remplir
+        if (animeList.length === 0) {
+            noAnimeMessage.style.display = 'block';
+        } else {
+            noAnimeMessage.style.display = 'none';
+            // Afficher les animes dans le DOM
+            animeList.forEach(function(anime, index) {
+                let listItem = document.createElement('li');
 
-            // Construire le chemin de l'image
-            const imageSrc = "{{ asset('img/anime_pfp/') }}" + "photo_"+ anime.id+".jpg"; // Assurez-vous que `anime.photo` contient le nom du fichier image
+                // Construire le chemin de l'image
+                const imageSrc = "{{ asset('img/anime_pfp/') }}" + "photo_" + anime.id + ".jpg"; 
 
-            // Créer une structure pour chaque anime favori
-            listItem.innerHTML = `
-                <img src="${imageSrc}" alt="${anime.titre}" class="anime-image" />
-                <span class="anime-title">${anime.titre}</span>
-            `;
+                // Créer une structure pour chaque anime favori avec une croix de suppression
+                listItem.innerHTML = `
+                    <img src="${imageSrc}" alt="${anime.titre}" class="anime-image" />
+                    <span class="anime-title">${anime.titre}</span>
+                    <span class="close-btn" data-index="${index}">&times;</span>
+                `;
 
-            listElement.appendChild(listItem);
-        });
+                // Ajouter un événement de clic sur la carte entière sauf la croix
+                listItem.addEventListener('click', function(event) {
+                    if (!event.target.classList.contains('close-btn')) {
+                        // Rediriger vers la page manga/{id} en utilisant l'ID de l'anime
+                        window.location.href = "/manga/" + anime.id;
+                    }
+                });
+
+                listElement.appendChild(listItem);
+            });
+        }
     }
+
+    // Fonction pour supprimer un anime de la liste
+    function removeAnime(index) {
+        animeList.splice(index, 1); // Supprimer l'anime de la liste
+        localStorage.setItem('animes', JSON.stringify(animeList)); // Mettre à jour le localStorage
+        renderAnimeList(); // Mettre à jour l'affichage de la liste
+    }
+
+    // Écouter les événements de clic sur la croix de suppression
+    listElement.addEventListener('click', function(event) {
+        if (event.target.classList.contains('close-btn')) {
+            let index = event.target.getAttribute('data-index'); // Récupérer l'index de l'anime à supprimer
+            removeAnime(index); // Appeler la fonction de suppression
+        }
+    });
+
+    // Initialiser l'affichage de la liste des animes
+    renderAnimeList();
 </script>
+
+
 
 <style>
     /* Style général pour le conteneur du profil */
     .profile-page {
-        max-width: 1200px;
-        margin: 50px auto;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
     }
 
     /* Style du titre de la page */
@@ -69,16 +102,32 @@
     list-style-type: none;
     overflow-x: auto;
     display: flex;
-    gap: 20px;
+    gap: 50px;
     overflow-y: hidden;
-    max-width: 1200px;
+    max-width: 990px;
     margin: 50px auto;
     padding: 30px;
     background-color: #ffffff0f;
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    }
+    .close-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #ffffffa8;
+    padding: 5px;
+    border-radius: 5px;
     }
 
+    .close-btn:hover {
+        color: #fff;
+        background-color: #ff4c4c;
+    }
     .anime-listing li {
         background-color: #3f51b58c;
         color: white;
@@ -93,6 +142,8 @@
         align-items: center; /* Centrer horizontalement */
         width: 200px; /* Largeur fixe pour chaque élément */
         flex-wrap: nowrap; /* Éviter le passage à la ligne */
+        position: relative;
+
     }
 
     .anime-image {

@@ -163,15 +163,7 @@
       transform: translateX(0); /* Déplacer le menu dans l'écran */
   }
 
-  /* Media Query pour afficher le menu à partir de 831px */
-  @media screen and (max-width: 831px) {
-      .menu-icon {
-          display: block; /* Afficher l'icône du menu */
-      }
-      .home-icon-account {
-          display: none; /* Masquer les liens de compte */
-      }
-  }
+
 
   /* Styles supplémentaires pour le contenu de la sidebar */
   .sidebar ul {

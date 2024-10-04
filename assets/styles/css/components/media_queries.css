@@ -55,19 +55,45 @@
 }
 
 @media screen and (max-width: 980px) {
+    .menu-icon {
+        display: block; /* Afficher l'icône du menu */
+        margin-right: 50px;
+    }
+    .home-icon-account {
+        display: none; /* Masquer les liens de compte */
+    }
     .home-navbar-container {
         min-width: 100%;
-        padding: 25px;
+        padding: 45px 0;
+    }
+    /* .home-icon-account{
+        font-size: 25px;
+    } */
+    .search-form svg {
+        width: 25px;
+        margin-top: 3px;
     }
     .search-form{
-        --height-of-input: 60px;
-        --width-of-input: 800px;
+        --height-of-input: 80px;
+        --width-of-input: 850px;
+    }
+    #searchButtonBar{
+        font-size: 1.4rem;
+    }
+    #searchMangaDownload{
+        font-size: 1.4rem;
     }
     .anime-container {
         margin: 5px 10px;
         width: 900px;
     }
-    
+    .video-container h2{
+        font-size: 1.7rem;
+        text-align: center;
+    }
+    .logo-site{
+        font-size: 35px;
+    }
     .main-video-container{
         max-width: 920px;
         margin: 0 auto;
@@ -82,8 +108,18 @@
         width: 300px;
         height: 545px;
     }
+    .anime-container h2{
+        font-size: 1.7rem;
+    }
+    .main-video-container h3{
+    font-size:2rem;
+    }
+    .video-container h2{
+        font-size: 2.2rem;
+    }
     .logo-site img{
-        padding-right: 13px;
+        padding: 0 15px;
+        height: 70px;
     }
     .footer-section p, .footer-section ul {
         font-size: 11px;
@@ -110,20 +146,47 @@
     .profile-anime-section {
         width: 800px;
     }
+    .profile-anime-section h2{
+        font-size: 2rem;
+    }
+    .profile-anime-section ul{
+        font-size: 1.4rem;
+    }
     .card{
-        width: 150px;
+        padding: 70px!important;
+        width: 200px;
+    }
+    .card a{
+        padding: 21px 20px;
     }
     .anime-catalogue-filter {
         max-width: 900px;
     }
     #search-input {
         padding: 25px;
+        font-size: 1.4rem;
     }
+    
     .anime-catalogue-item {
         height: 320px;
     }
+    .anime-catalogue-list h2{
+        font-size: 1.4rem;
+    }
     .checkbox-wrapper-16 .checkbox-tile {
         min-height: 40px;
+    }
+    .scan-container-box h3{
+        font-size: 1.8rem;
+    }
+    .filter-container{
+        font-size: 1.2rem;
+    }
+    .favbtn{
+        padding: 20px 20px!important;
+    }
+    .main-profile-container p{
+        font-size: 1.8rem;
     }
 }
 

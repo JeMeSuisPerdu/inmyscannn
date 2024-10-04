@@ -167,6 +167,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
 }
 #search-results li{
  padding: 1px;
